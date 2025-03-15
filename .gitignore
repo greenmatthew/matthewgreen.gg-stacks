@@ -1,0 +1,10 @@
+# Ignore environment files with real secrets
+.env
+
+# Ignore PostgreSQL data directory if it's in this folder
+data/
+
+# Ignore any backup files
+*.backup
+*.bak
+*.sql.gz
