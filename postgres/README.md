@@ -10,28 +10,6 @@ This directory contains the configuration for a centralized PostgreSQL database 
 - Traefik integration for secure web access
 - Shared network for application access
 
-## Environment Variables
-
-### Required Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `POSTGRES_USER` | Username for the PostgreSQL admin user | None |
-| `POSTGRES_PASSWORD` | Password for the PostgreSQL admin user | None |
-| `POSTGRES_DATA_LOCATION` | Location on host filesystem where PostgreSQL data will be stored | `/mnt/data/postgres` |
-| `PGADMIN_DEFAULT_EMAIL` | Email address used to login to pgAdmin | None |
-| `PGADMIN_DEFAULT_PASSWORD` | Password for pgAdmin login | None |
-| `PGADMIN_DATA_LOCATION` | Location on host filesystem where pgAdmin data will be stored | `/mnt/data/pgadmin` |
-
-### Optional Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `POSTGRES_PORT` | Port to expose PostgreSQL on the host | `5432` |
-| `PGADMIN_PORT` | Port to expose pgAdmin web interface on the host | `5050` |
-| `PGADMIN_DOMAIN` | Domain name for pgAdmin | `localhost` |
-| `USE_TRAEFIK` | Enable Traefik integration for pgAdmin. When set, pgAdmin will be accessible via the PGADMIN_DOMAIN. When not set, pgAdmin will only be accessible via port. | Not set |
-
 ## Setup Instructions
 
 1. Create the required directories on your host:
