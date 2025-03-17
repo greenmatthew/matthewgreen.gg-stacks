@@ -5,12 +5,12 @@ CREATE DATABASE mealie;
 CREATE DATABASE gamevault;
 CREATE DATABASE plex;
 
--- Create users with passwords
-CREATE USER immich WITH PASSWORD 'immich_password';
-CREATE USER nextcloud WITH PASSWORD 'nextcloud_password';
-CREATE USER mealie WITH PASSWORD 'mealie_password';
-CREATE USER gamevault WITH PASSWORD 'gamevault_password';
-CREATE USER plex WITH PASSWORD 'plex_password';
+-- Create users with passwords from environment variables
+CREATE USER immich WITH PASSWORD '${IMMICH_DB_PASSWORD}';
+CREATE USER nextcloud WITH PASSWORD '${NEXTCLOUD_DB_PASSWORD}';
+CREATE USER mealie WITH PASSWORD '${MEALIE_DB_PASSWORD}';
+CREATE USER gamevault WITH PASSWORD '${GAMEVAULT_DB_PASSWORD}';
+CREATE USER plex WITH PASSWORD '${PLEX_DB_PASSWORD}';
 
 -- Grant privileges
 GRANT ALL PRIVILEGES ON DATABASE immich TO immich;
