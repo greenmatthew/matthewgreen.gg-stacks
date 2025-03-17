@@ -10,10 +10,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
-      - ./data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - ${POSTGRES_DATA_LOCATION:-/mnt/data/postgres}:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     healthcheck:
       test: >-
         pg_isready --dbname=postgres --username="$$POSTGRES_USER" || exit 1;
@@ -44,19 +43,19 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     volumes:
-      - ./pgadmin_data:/var/lib/pgadmin
+      - ${PGADMIN_DATA_LOCATION:-/mnt/data/pgadmin}:/var/lib/pgadmin
     ports:
-      - "5050:80"
+      - "${PGADMIN_PORT:-5050}:80"
     depends_on:
       - postgres
     networks:
       - postgres_network
       - traefik_network
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.pgadmin.rule=Host(`pgadmin.matthewgreen.gg`)
-      - traefik.http.routers.pgadmin.entrypoints=websecure
-      - traefik.http.routers.pgadmin.tls=true
+      ${USE_TRAEFIK:+- traefik.enable=true}
+      ${USE_TRAEFIK:+- traefik.http.routers.pgadmin.rule=Host(`${PGADMIN_DOMAIN:-localhost}`)}
+      ${USE_TRAEFIK:+- traefik.http.routers.pgadmin.entrypoints=websecure}
+      ${USE_TRAEFIK:+- traefik.http.routers.pgadmin.tls=true}
 
 networks:
   postgres_network:
@@ -64,3 +63,4 @@ networks:
   traefik_network:
     external: true
     name: traefik_network
+    optional: true
